@@ -35,8 +35,9 @@ export async function openMapInWebview(selectedText: string, context: vscode.Ext
  * @returns An array of [lat, lng] pairs.
  */
 export function convertStrToMarkers(str: string): string[][] {
+    const cleanedUpStr = str.trim().replace(/S|W/g, '-').replace(/N|E/g, '');
     const regex = /(\-?\d+(\.\d+)?\s*,\s*\-?\d+(\.\d+)?)/g;
-    const pairs = str.match(regex);
+    const pairs = cleanedUpStr.match(regex);
 
     return (pairs ?? []).map(latlng => latlng.split(',').map(num => num.trim()));
 }
